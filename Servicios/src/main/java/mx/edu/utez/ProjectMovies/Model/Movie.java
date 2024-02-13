@@ -3,14 +3,23 @@ package mx.edu.utez.ProjectMovies.Model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+
+import java.util.Date;
+
 @Entity
 public class Movie {
 
     private @Id @GeneratedValue Long id;
 
-    private String name, director, gender;
+    private String nombre, director;
 
-    private int duration;
+    private Date fechaPublicacion;
+
+    private int duracion;
+
+    @ManyToOne
+    private Category category;
 
     public Long getId() {
         return id;
@@ -20,12 +29,12 @@ public class Movie {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public String getDirector() {
@@ -36,19 +45,27 @@ public class Movie {
         this.director = director;
     }
 
-    public String getGender() {
-        return gender;
+    public Date getFechaPublicacion() {
+        return fechaPublicacion;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
+    public void setFechaPublicacion(Date fechaPublicacion) {
+        this.fechaPublicacion = fechaPublicacion;
     }
 
-    public int getDuration() {
-        return duration;
+    public int getDuracion() {
+        return duracion;
     }
 
-    public void setDuration(int duration) {
-        this.duration = duration;
+    public void setDuracion(int duracion) {
+        this.duracion = duracion;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }

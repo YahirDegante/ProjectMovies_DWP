@@ -25,6 +25,13 @@ public class MovieController {
         return service.PageOfMovie(pageable);
     }
 
+    @DeleteMapping("/{id}")
+    public void deleteMovie(@PathVariable Long id){
+        service.deleteMovie(id);
+    }
 
-
+    @PutMapping("/{id}")
+    public Movie updateMovie(@PathVariable Long id, @RequestBody Movie movie){
+        return service.updateMovie(id, movie);
+    }
 }
