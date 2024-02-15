@@ -8,34 +8,68 @@
                 <p>Duración: {{ movie.duracion }} minutos</p>
                 <p>Categoría: {{ movie.category.nombreCategoria }}</p>
                 <div class="card-buttons">
-                    <button @click="editarPelicula(movie)">Editar</button>
+                    <div>
+                        <button @click="seleccionarPelicula(movie)">Editar</button>
+                    </div>
                     <button @click="eliminarPelicula(movie)">Eliminar</button>
                 </div>
             </div>
         </div>
+        <updateMovieModal v-if="selectedMovie" :selectedMovie="selectedMovie" @cerrar="cerrarModal" />
     </div>
-</template>  
-  
+</template>
+
 <script>
 import ServiceMovie from "../services/ServiceMovie";
+import UpdateMovieModal from "../components/Modal/UpdateMovieModal.vue";
 
 export default {
     data() {
         return {
-            movies: []
+            movies: [],
+            selectedMovie: null
         };
+    },
+    components: {
+        UpdateMovieModal
     },
     mounted() {
         this.obtenerPeliculas();
+        this.obtenerPeliculaSeleccionada();
     },
     methods: {
         async obtenerPeliculas() {
             try {
                 const data = await ServiceMovie.obtenerPeliculas();
-                console.log(data);
                 this.movies = data.content;
             } catch (error) {
                 console.log(error);
+            }
+        },
+        async eliminarPelicula(movie) {
+            try {
+                const confirmacion = confirm("¿Estás seguro de que deseas eliminar esta película?");
+                if (confirmacion) {
+                    await ServiceMovie.eliminarPeliculas(movie.id);
+                    alert("Película eliminada exitosamente");
+                    this.obtenerPeliculas();
+                }
+            } catch (error) {
+                console.error("Error al eliminar la película:", error);
+            }
+        },
+        seleccionarPelicula(movie) {
+            this.selectedMovie = movie;
+            localStorage.setItem("selectedMovie", JSON.stringify(movie));
+        },
+        cerrarModal() {
+            this.selectedMovie = null;
+            localStorage.removeItem("selectedMovie");
+        },
+        obtenerPeliculaSeleccionada() {
+            const storedMovie = localStorage.getItem("selectedMovie");
+            if (storedMovie) {
+                this.selectedMovie = JSON.parse(storedMovie);
             }
         },
         formatDate(date) {
@@ -45,7 +79,7 @@ export default {
     }
 };
 </script>
-  
+
 <style>
 .row {
     display: flex;
