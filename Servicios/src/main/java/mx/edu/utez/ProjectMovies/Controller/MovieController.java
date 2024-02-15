@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/movies/")
-@CrossOrigin(origins = "")
+@CrossOrigin(origins = "http://localhost:5174")
 public class MovieController {
     @Autowired
     private MovieService service;
