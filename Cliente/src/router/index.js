@@ -12,6 +12,11 @@ const router = new VueRouter({
         name: 'content',
         component: ()=> import('../views/Content.vue')
     },
+    {
+      path: '/movies',
+      name: 'movies',
+      component: () => import('../views/MoviesView.vue')
+    },
   ]
 })
 
