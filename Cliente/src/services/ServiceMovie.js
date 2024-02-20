@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8080/api/movies/";
+const API_URL = "http://localhost:8081/api/movies/";
 
 const registrarPelicula = async (movie) => {
     try {
@@ -25,7 +25,6 @@ const obtenerPeliculas = async (page, size) => {
                 size,
             },
         });
-        console.log(response);
         return response.data;
     } catch (error) {
         console.error(error);
