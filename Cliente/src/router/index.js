@@ -8,7 +8,7 @@ const router = new VueRouter({
   base: import.meta.env.BASE_URL,
   routes: [
     {
-        path: '/content',
+        path: '/',
         name: 'content',
         component: ()=> import('../views/Content.vue')
     },

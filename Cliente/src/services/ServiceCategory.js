@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8081/api/category/";
+const API_URL = "http://localhost:8080/api/category/";
 
 const obtenerCategorias = async () => {
     try {
